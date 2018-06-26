@@ -2,6 +2,8 @@ package br.com.crud.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -58,6 +60,31 @@ public class ProdutoDao {
 		modelo.addColumn("Código");
 		modelo.addColumn("Produto");
 		modelo.addColumn("Valor");
+		
+		//SQL
+		String sql = "SELECT * FROM produtos";
+		
+		//Executar
+		try{
+			//Comando para realizar a conexão e executar o comando SQL
+			Statement stmt = conexao.createStatement();
+			
+			//Obter todos os dados da tabela
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			//Laço
+			while(rs.next()){
+				modelo.addRow(new Object[] {
+						rs.getInt("idProduto"),
+						rs.getString("nomeProduto"),
+						rs.getDouble("valorProduto")
+				});
+			}
+			
+			
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, "Falha ao executar a seleção.");
+		}
 		
 		return modelo;
 		

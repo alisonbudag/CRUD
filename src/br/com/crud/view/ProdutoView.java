@@ -55,6 +55,16 @@ public class ProdutoView extends JFrame {
 		txtValor.setBounds(97, 62, 202, 20);
 		contentPane.add(txtValor);
 		
+		ProdutoDao a = new ProdutoDao();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 161, 304, 176);
+		contentPane.add(scrollPane);
+		
+		tblListarProdutos = new JTable();
+		tblListarProdutos.setModel(a.listarProdutos());
+		scrollPane.setViewportView(tblListarProdutos);
+		
 		JButton btnCadastrarProduto = new JButton("Cadastrar Produto");
 		btnCadastrarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -74,18 +84,14 @@ public class ProdutoView extends JFrame {
 				txtValor.setText("");
 				txtProduto.requestFocus();
 				
+				//Atualizar a tabela
+				tblListarProdutos.setModel(a.listarProdutos());
+				
 			}
 		});
 		btnCadastrarProduto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnCadastrarProduto.setBounds(80, 105, 176, 31);
+		btnCadastrarProduto.setBounds(81, 105, 176, 31);
 		contentPane.add(btnCadastrarProduto);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 147, 304, 190);
-		contentPane.add(scrollPane);
-		
-		tblListarProdutos = new JTable();
-		scrollPane.setViewportView(tblListarProdutos);
 		
 	}
 }
