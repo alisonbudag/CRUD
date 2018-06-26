@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProdutoView extends JFrame {
 
@@ -62,6 +64,25 @@ public class ProdutoView extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tblListarProdutos = new JTable();
+		tblListarProdutos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				//Obter a linha selecionada
+				int linhaSelecionada = tblListarProdutos.getSelectedRow();
+				
+				//Obter o idProduto
+				int idProduto = (int) tblListarProdutos.getValueAt(linhaSelecionada, 0);
+				
+				//Fechar formulário
+				dispose();
+				
+				//Abrir o formulário para alterar/excluir
+				AlterarProdutoView apv = new AlterarProdutoView(idProduto);
+				apv.setVisible(true);
+				
+			}
+		});
 		tblListarProdutos.setModel(a.listarProdutos());
 		scrollPane.setViewportView(tblListarProdutos);
 		

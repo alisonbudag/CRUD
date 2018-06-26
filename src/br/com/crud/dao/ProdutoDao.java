@@ -89,5 +89,34 @@ public class ProdutoDao {
 		return modelo;
 		
 	}
+	
+	//Método para excluir o produto
+	public void excluirProduto(int idProduto){
+		
+		//SQL
+		String sql = "delete from produtos where idProduto = ?";
+		
+		//Realizar a exclusão
+		try{
+			
+			//Preparar a exclusão
+			PreparedStatement pstmt = conexao.prepareStatement(sql);
+			pstmt.setInt(1, idProduto);
+			
+			//Executar o comando
+			pstmt.execute();
+			
+			//Finalizar conexão com o banco de dados
+			pstmt.close();
+			
+			//Mensagem
+			JOptionPane.showMessageDialog(null, "Excluído com sucesso!");
+			
+			
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, "Falha ao excluir");
+		}
+		
+	}
 
 }
